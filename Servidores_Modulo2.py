@@ -39,7 +39,22 @@ class Solicitud:
         return f"Solicitud {self.id} | Requerimientos: {self.requerimientos} | Prioridad: {self.prioridad}"
 
 
+#Optimiza la asignacion de solicitudes a servidores
+def asignar_optimo(servidores, solicitudes, matriz_costos):
+    prioridades = np.array([s.prioridad for s in solicitudes])
+    matriz_ajustada = matriz_costos - prioridades * 1000
 
+    filas, columnas = linear_sum_assignment(matriz_ajustada)
+    asignaciones = []
+
+    for i, j in zip(filas, columnas):
+        servidor = servidores[i]
+        solicitud = solicitudes[j]
+        if servidor.agregar_solicitud(solicitud):
+            asignaciones.append((servidor.identificador, solicitud.id, matriz_costos[i, j]))
+    return asignaciones
+
+#Utilidades
 
 def validacion_numero_entero(msg, minimo=1):
     #Pide un numero entero al usuario
@@ -52,8 +67,16 @@ def validacion_numero_entero(msg, minimo=1):
         except ValueError:
             print("Ingrese un numero entero")
 
+def crear_servidores():
+    n = validacion_numero_entero("Cantidad de servidores: ")
+    return [Servidor(i, validacion_numero_entero(f"Capacidad del servidor {i}: ")) for i in range(n)]
 
-
+def crear_solicitudes():
+    n = validacion_numero_entero("Cantidad de solicitudes: ")
+    return [Solicitud(i,
+                      validacion_numero_entero(f"Tamaño de la solicitud {i}: "),
+                      validacion_numero_entero(f"Prioridad de la solicitud {i} (1-5): "))
+            for i in range(n)]
 
 def ingresar_matriz_costos(servidores, solicitudes):
     matriz = np.zeros((len(servidores), len(solicitudes)))
