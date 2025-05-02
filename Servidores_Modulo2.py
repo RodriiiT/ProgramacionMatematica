@@ -25,7 +25,7 @@ class Servidor:
     # Método para mostrar el estado actual del servidor
     def mostrar_informacion(self):
         ids = [s.id for s in self.solicitudes]
-        return f"Servidor {self.identificador} | Carga: {self.capacidad_actual}/{self.capacidad} | Solicitudes: {ids}"
+        return f"Servidor {self.identificador} | Carga: {self.capacidad_actual}/{self.capacidad} | Solicitudes: {[ id for id in ids]}"
 
 # Clase que representa una solicitud con sus características
 class Solicitud:
