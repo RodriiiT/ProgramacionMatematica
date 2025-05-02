@@ -96,11 +96,17 @@ def ingresar_matriz_costos(servidores, solicitudes):
 def cargar_datos_ejemplo():
     #Se muestran los servidores y las solicitudes de ejemplo
     servidores = [Servidor(0, 10), Servidor(1, 8), Servidor(2, 6)]
+    print("\nServidores de ejemplo:")
     for s in servidores:
         print(s.mostrar_informacion())
+
+    print("----------------------------------")
+    print("\nSolicitudes de ejemplo:")
     solicitudes = [Solicitud(0, 3, 2),Solicitud(1, 2, 1),Solicitud(2, 4, 3),Solicitud(3, 1, 2)]
     for r in solicitudes:
         print(r.mostrar_informacion())
+    
+    print("\n----------------------------------")
     matriz_costos = np.array([[10, 12, 9, 8],[7, 9, 11, 5],[8, 7, 6, 9]])
     return servidores, solicitudes, matriz_costos
 
