@@ -12,6 +12,39 @@ class Tarea:
         self.id = id_tarea
         self.programadores_requeridos = programadores_requeridos
 
+# Después definimos una función donde permite el programa puede leer datos desde un archivo de txt:
+"""
+Para el caso de archivo de txt:
+La primer linea te indica cantidad de programador y tarea
+La segunda linea indica la capacidad maxima de tarea para cada programador
+Después a partir en la tercer linea se muestra la costo combinado (desempeño + transporte) para cada programador
+(Estos para entender bien como debe tener el formato de archivo txt)
+"""
+def leer_datos_desde_archivo(nombre_archivo):
+    try:
+        with open(nombre_archivo, 'r') as file:
+            lineas = file.readlines()
+            
+            # Leer N y M (primera línea)
+            N, M = map(int, lineas[0].strip().split())
+            
+            # Leer capacidades de programadores (segunda línea)
+            capacidades = list(map(int, lineas[1].strip().split()))
+            
+            # Leer demandas de tareas (tercera línea)
+            demandas = list(map(int, lineas[2].strip().split()))
+            
+            # Leer matriz de costos (resto de líneas)
+            C = []
+            for i in range(N):
+                fila = list(map(float, lineas[3+i].strip().split()))
+                C.append(fila)
+                
+            return N, M, capacidades, demandas, C
+    except Exception as e:
+        print(f"Error al leer el archivo: {e}")
+        return None
+
 # Aqui empezamos definir el main y con su validacion
 def main():
     while True:
@@ -54,8 +87,22 @@ def main():
                     return
                 C.append(fila)
         elif opcion == '2':
-            print("Opcion 2")
-            break
+            # Lectura desde archivo para los datos
+            nombre_archivo = input("Ingrese el nombre del archivo TXT: ")
+            datos = leer_datos_desde_archivo(nombre_archivo)
+            if not datos:
+                continue
+            
+            # Dando valores a los siguientes variables
+            N, M, capacidades, demandas, C = datos
+            
+            programadores = []
+            for i in range(N):
+                programadores.append(Programador(i, capacidades[i]))
+            
+            tareas = []
+            for j in range(M):
+                tareas.append(Tarea(j, demandas[j]))
         else:
             print("Saliendo el programa......")
             print("¡Hasta Luego!")
