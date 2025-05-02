@@ -86,3 +86,8 @@ def ingresar_matriz_costos(servidores, solicitudes):
             matriz[i, j] = validacion_numero_entero(f"Servidor {s.identificador} → Solicitud {r.id}: ")
     return matriz
 
+def cargar_datos_ejemplo():
+    servidores = [Servidor(0, 10), Servidor(1, 8), Servidor(2, 6)]
+    solicitudes = [Solicitud(0, 3, 2),Solicitud(1, 2, 1),Solicitud(2, 4, 3),Solicitud(3, 1, 2)]
+    matriz_costos = np.array([[10, 12, 9, 8],[7, 9, 11, 5],[8, 7, 6, 9]])
+    return servidores, solicitudes, matriz_costos
