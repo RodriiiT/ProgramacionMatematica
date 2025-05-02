@@ -55,8 +55,12 @@ def main():
                 entrada = input("¿Desea ingresar datos por consola o archivo? (c/a): ").strip().lower()
                 
             if entrada == "a":
-                nombre_archivo = input("Ingrese el nombre del archivo: ")
-                matriz = leer_matriz_archivo(nombre_archivo)
+                try: 
+                    nombre_archivo = input("Ingrese el nombre del archivo: ")
+                    matriz = leer_matriz_archivo(nombre_archivo)
+                except FileNotFoundError:
+                    print("El archivo no fue encontrado")
+                    continue
             else:
                 try:
                     n = int(input("Número de programadores: "))
