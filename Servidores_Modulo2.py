@@ -25,7 +25,7 @@ class Servidor:
     # Método para mostrar el estado actual del servidor
     def mostrar_informacion(self):
         ids = [s.id for s in self.solicitudes]
-        return f"Servidor {self.identificador} | Carga: {self.capacidad_actual}/{self.capacidad} | Solicitudes: {ids}"
+        return f"Servidor {self.identificador} | Carga: {self.capacidad_actual}/{self.capacidad} | Solicitudes: {[ id for id in ids]}"
 
 # Clase que representa una solicitud con sus características
 class Solicitud:
@@ -72,6 +72,7 @@ def validacion_numero_entero(msg, minimo=1):
 # Función para crear servidores con sus capacidades
 def crear_servidores():
     n = validacion_numero_entero("Cantidad de servidores: ")
+    #Se crea y retorna una lista de servidores con sus capacidades
     return [Servidor(i, validacion_numero_entero(f"Capacidad del servidor {i}: ")) for i in range(n)]
 
 # Función para crear solicitudes con sus requerimientos y prioridades
@@ -93,6 +94,7 @@ def ingresar_matriz_costos(servidores, solicitudes):
 
 # Función que carga datos de ejemplo predefinidos
 def cargar_datos_ejemplo():
+    #Se muestran los servidores y las solicitudes de ejemplo
     servidores = [Servidor(0, 10), Servidor(1, 8), Servidor(2, 6)]
     for s in servidores:
         print(s.mostrar_informacion())
@@ -104,6 +106,7 @@ def cargar_datos_ejemplo():
 
 # Función que muestra el menú principal y obtiene la opción del usuario
 def menu():
+    #Se muestra el titulo del programa junto a las opciones a elegir
     print("\n###### ASIGNADOR ÓPTIMO DE SOLICITUDES ######")
     print("1. Usar datos de ejemplo")
     print("2. Ingresar datos manualmente")
@@ -147,7 +150,7 @@ def main():
         print("\nTiempo total:", sum(costo for _, _, costo in asignaciones))
 
         continuar = desea_continuar()
-
+    #Salida del programa
     print("\n👋 Programa finalizado.")
 
 # Punto de entrada del programa
