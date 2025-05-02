@@ -24,6 +24,20 @@ class Servidor:
 
 
 
+#Clase Solicitud
+class Solicitud:
+    #Inicializando la clase Solicitud con los atributos: identificador, tamaño
+    def __init__(self, id, requerimientos, prioridad):
+        self.id = id
+        self.requerimientos = requerimientos
+        self.prioridad = prioridad
+
+    def mostrar_informacion(self):
+        #Muestra la informacion de la solicitud con el identificador, los requerimientos y la prioridad
+        return f"Solicitud {self.id} | Requerimientos: {self.requerimientos} | Prioridad: {self.prioridad}"
+
+
+
 
 
 
