@@ -25,7 +25,7 @@ class Servidor:
     # Método para mostrar el estado actual del servidor
     def mostrar_informacion(self):
         ids = [s.id for s in self.solicitudes]
-        return f"Servidor {self.identificador} | Carga: {self.capacidad_actual}/{self.capacidad} | Solicitudes: {ids}"
+        return f"Servidor {self.identificador} | Carga: {self.capacidad_actual}/{self.capacidad} | Solicitudes: {[ id for id in ids]}"
 
 # Clase que representa una solicitud con sus características
 class Solicitud:
@@ -147,7 +147,7 @@ def main():
         print("\nTiempo total:", sum(costo for _, _, costo in asignaciones))
 
         continuar = desea_continuar()
-
+    #Salida del programa
     print("\n👋 Programa finalizado.")
 
 # Punto de entrada del programa
