@@ -36,25 +36,44 @@ def asignacion_optima(matriz_costos):
         total += min_costo
 
     return asignaciones, total
-
+    
 def main():
-    entrada = input("¿Desea ingresar datos por consola o archivo? (c/a): ").strip().lower()
-    if entrada == 'a':
-        nombre_archivo = input("Ingrese el nombre del archivo: ")
-        matriz = leer_matriz_archivo(nombre_archivo)
-    else:
-        n = int(input("Número de programadores: "))
-        m = int(input("Número de tareas: "))
-        matriz = leer_matriz_consola(n, m)
-        n = len(matriz)
-        m = len(matriz[0]) if n > 0 else 0
+    while True:
+        cent = input("¿Desea continuar (s/n): ").lower()
+        while cent not in ("s", "n"):
+            print("Por favor ingrese un cáracter válido")
+            cent = input("¿Desea continuar (s/n)").lower()
+            
+        if cent == "n":
+            print("Saliendo...")
+            break
+        else:
+            #Entrada
+            entrada = input("¿Desea ingresar datos por consola o archivo? (c/a): ").strip().lower()
+            while entrada not in ("c", "a"):
+                print("Entrada inválida, por favor ingrese un carácter válido")
+                entrada = input("¿Desea ingresar datos por consola o archivo? (c/a): ").strip().lower()
+                
+            if entrada == "a":
+                nombre_archivo = input("Ingrese el nombre del archivo: ")
+                matriz = leer_matriz_archivo(nombre_archivo)
+            else:
+                try:
+                    n = int(input("Número de programadores: "))
+                    m = int(input("Número de tareas: "))
+                    matriz = leer_matriz_consola(n, m)
+                    n = len(matriz)
+                    m = len(matriz[0]) if n > 0 else 0
+                except ValueError:
+                    print("Ingrese números válidos")
+                    continue
+                
+            asignaciones, total = asignacion_optima(matriz)
 
-    asignaciones, total = asignacion_optima(matriz)
-
-    print("\nAsignación óptima:")
-    for prog, tarea in asignaciones:
-        print(f"Tarea {tarea} -> Programador {prog} (Costo: {matriz[prog][tarea]})")
-    print(f"\nCosto total: {total}")
+            print("\nAsignación óptima:")
+            for prog, tarea in asignaciones:
+                print(f"Tarea {tarea} -> Programador {prog} (Costo: {matriz[prog][tarea]})")
+            print(f"\nCosto total: {total}")
 
 if __name__ == "__main__":
     main()
